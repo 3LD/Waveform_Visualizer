@@ -17,7 +17,7 @@ class wave_file:
         self.BitsPerSample  = struct.unpack('<h', f.read(2))[0]             # 8/16/etc                      2B
         self.subChunk2ID    = f.read(4).decode('utf-8')                     #'data'                         4B
         self.subChunk2Size  = struct.unpack('<i', f.read(4))[0]             #numsamples*channels*byt/sample 4B
-        self.data_raw       = struct.unpack(str(int(self.subChunk2Size/self.BlockAlign))+'h', f.read(self.subChunk2Size))     #pretty but we're assuming always 16 BitsPerSample, prob not goood
+        self.data_raw       = struct.unpack(str(int(self.subChunk2Size/self.BlockAlign))+'h', f.read(self.subChunk2Size))
         self.data_norm      = [float(i)/2**15 for i in self.data_raw]       #normalize data
         f.close()
 #==================================================
